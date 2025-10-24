@@ -18,7 +18,8 @@ router.post('/submit', async (req, res) => {
     // 3. Generate the unique download link
     //    We use the new application's ID (`savedApplication._id`)
     //    In production, change 'http://localhost:5000' to your live backend URL
-    const downloadLink = `http://localhost:5000/api/download-pdf/${savedApplication._id}`;
+    const baseUrl = process.env.RENDER_EXTERNAL_URL || 'http://localhost:5000';
+    const downloadLink = `${baseUrl}/api/download-pdf/${savedApplication._id}`;
 
     // 4. Send the confirmation emails
     await sendConfirmationEmails(savedApplication, downloadLink);
