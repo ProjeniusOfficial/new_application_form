@@ -6,9 +6,22 @@ require('dotenv').config(); // Load environment variables
 
 const app = express();
 const port = process.env.PORT || 5000;
+const allowedOrigins = [
+  'http://localhost:3000', // For local testing
+  'https://new-application-form.vercel.app/' // <-- ADD THIS LINE
+];
 
-// --- Middleware ---
-app.use(cors()); // Allow cross-origin requests
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+};
+
+app.use(cors(corsOptions)); // Allow cross-origin requests
 app.use(express.json({ limit: '10mb' })); // Allow server to accept JSON
 app.use(express.urlencoded({ extended: true }));
 
