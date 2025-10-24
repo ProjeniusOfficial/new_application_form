@@ -8,7 +8,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 const allowedOrigins = [
   'http://localhost:3000', // For local testing
-  'https://new-application-form.vercel.app/' // <-- ADD THIS LINE
+  'https://new-application-form.vercel.app' // <-- ADD THIS LINE
 ];
 
 const corsOptions = {
